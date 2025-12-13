@@ -2,14 +2,17 @@ import { GoogleGenAI, Chat } from "@google/genai";
 import { ScenarioConfig } from "../types";
 import { SYSTEM_INSTRUCTION, getPrompt } from "../constants";
 
+// Helper to get the API key safely
+const getApiKey = () => import.meta.env.VITE_API_KEY;
+
 export const generateScenario = async (config: ScenarioConfig): Promise<string> => {
   try {
-    // Guidelines require using process.env.API_KEY
-    if (!process.env.API_KEY) {
+    const apiKey = getApiKey();
+    if (!apiKey) {
       throw new Error("MISSING_API_KEY");
     }
 
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const ai = new GoogleGenAI({ apiKey });
     
     const userPrompt = getPrompt(config);
     
@@ -37,11 +40,12 @@ export const generateScenario = async (config: ScenarioConfig): Promise<string> 
 };
 
 export const createManagerChat = (config: ScenarioConfig, scenarioText: string): Chat => {
-  if (!process.env.API_KEY) {
+  const apiKey = getApiKey();
+  if (!apiKey) {
     throw new Error("MISSING_API_KEY");
   }
 
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  const ai = new GoogleGenAI({ apiKey });
 
   const managerPersona = `
     You are a Senior Product Leader (Head of Product or VP of Design). 
