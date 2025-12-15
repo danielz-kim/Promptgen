@@ -2,19 +2,9 @@ import { GoogleGenAI, Chat } from "@google/genai";
 import { ScenarioConfig } from "../types";
 import { SYSTEM_INSTRUCTION, getPrompt } from "../constants";
 
-// Helper to get the API key safely from Vite environment variables
-// In Netlify, set the environment variable: VITE_API_KEY
-const getApiKey = () => {
-  const key = import.meta.env.VITE_API_KEY;
-  if (!key) {
-    console.error("VITE_API_KEY is missing. Please check your Netlify Environment Variables.");
-  }
-  return key;
-};
-
 export const generateScenario = async (config: ScenarioConfig): Promise<string> => {
   try {
-    const apiKey = getApiKey();
+    const apiKey = process.env.API_KEY;
     if (!apiKey) {
       throw new Error("MISSING_API_KEY");
     }
@@ -47,7 +37,7 @@ export const generateScenario = async (config: ScenarioConfig): Promise<string> 
 };
 
 export const createManagerChat = (config: ScenarioConfig, scenarioText: string): Chat => {
-  const apiKey = getApiKey();
+  const apiKey = process.env.API_KEY;
   if (!apiKey) {
     throw new Error("MISSING_API_KEY");
   }

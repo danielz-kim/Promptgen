@@ -101,7 +101,7 @@ const App: React.FC = () => {
     
     const opt = {
       margin:       [10, 10, 10, 10], // top, left, bottom, right
-      filename:     `promptgen-${new Date().toISOString().split('T')[0]}.pdf`,
+      filename:     `product-prompt-${new Date().toISOString().split('T')[0]}.pdf`,
       image:        { type: 'jpeg', quality: 0.98 },
       html2canvas:  { scale: 2, useCORS: true },
       jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
@@ -118,9 +118,11 @@ const App: React.FC = () => {
         <header className="sticky top-0 z-30 w-full border-b border-stone-200 bg-[#FDFCF8]/95 backdrop-blur-sm">
           <div className="container mx-auto px-6 h-16 flex items-center justify-between max-w-6xl">
             <div className="flex flex-col">
-              <h1 className="text-xl font-bold tracking-tight text-stone-900 font-serif italic">PromptGen</h1>
+              <h1 className="text-lg md:text-xl font-bold tracking-tight text-stone-900 font-serif italic leading-tight">
+                Realistic Product Prompt Generator
+              </h1>
             </div>
-            <div className="text-[10px] font-serif italic text-stone-500 tracking-wide">
+            <div className="text-[10px] font-serif italic text-stone-500 tracking-wide hidden sm:block">
                Est. 2025
             </div>
           </div>
